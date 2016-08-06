@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ product.name }}, {{ product.categories.all }}, {{ product.specifications }} {{ product.description }}, {{ product.cost }},
+<img src="{{ product.image.url }}">, {{ product.creator }}
+    <a href="/shopping-cart/add/?product_id={{product.pk}}">Add to cart</a>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="/shopping-cart/show/">Show cart</a>
+    {% for product in product_list %}
+        <a href="{{ product.get_absolute_url }}"><p>{{ product.name }}</p></a>
+    {% endfor %}
+{% endblock %}
