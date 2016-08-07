@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load carton_tags %}
+{% get_cart as cart %}
+<form method="POST">{% csrf_token %}
+
+<input type="submit" value="" name="products">
+</form>
+{% endblock %}

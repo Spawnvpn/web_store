@@ -1,17 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% load carton_tags %}
-{% get_cart as cart %}
-
+        {% load carton_tags %}
+        {% get_cart as cart %}
 {% for item in cart.items %}
     {{ item.product.name }}
     {{ item.quantity }}
-    {{ item.total_price }}
+    {{ item.subtotal }}
 {% endfor %}
 
 You can also use this convinent shortcut:
 {% for product in cart.products %}
     {{ product.name }}
 {% endfor %}
+    <a href="/cart/checkout/">Checkout</a>
+
+
+{% for item in cart.items %}
+    <a onclick='AjaxRemove("{% url 'remove' %}?id={{ item.product.id }}")'>Remove this item</a>
+{% endfor %}
+
+<script type="text/javascript">
+    function AjaxRemove(remove_url) {
+        $.ajax({
+            url: remove_url,
+            success: function(response) {alert(response);},
+            error: function() {alert("Couldn't remove item");}
+        })}
+</script>
 {% endblock %}

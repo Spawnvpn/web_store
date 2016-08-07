@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <a href="/shopping-cart/show/">Show cart</a>
+    <div class="row">
     {% for product in product_list %}
-        <a href="{{ product.get_absolute_url }}"><p>{{ product.name }}</p></a>
+  <div class="col-md-4">
+      <a href="{{ product.get_absolute_url }}">
+          <img class="img-rounded img-responsive" width="300" height="300" src="{{ product.image.url }}">
+      </a>
+  <p>{{ product.name }}</p>
+  <p>In stock {{ product.quantity_in_stock }}</p>
+  <p>Price {{ product.price|floatformat }}</p>
+  </div>
     {% endfor %}
+    </div>
 {% endblock %}
