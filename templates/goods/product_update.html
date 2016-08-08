@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" action="">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button class="btn btn-primary" formenctype="multipart/form-data">Update</button>
+    <a class="btn btn-danger" href="{{ product.get_absolute_url }}delete/">Delete</a>
+    </form>
+{% endblock %}

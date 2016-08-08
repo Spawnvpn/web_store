@@ -2,6 +2,7 @@ import datetime
 from django.contrib.auth import authenticate, models
 from django import forms
 from django.forms.widgets import MultiWidget, Select, TextInput
+from users.models import WebStoreUser
 
 
 class PhoneWidget(MultiWidget):
@@ -57,7 +58,7 @@ class RegisterUserForm(forms.ModelForm):
         return password2
 
     class Meta:
-        model = models.User
+        model = WebStoreUser
         fields = (
             "username",
             "password1",

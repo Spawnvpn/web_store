@@ -1,17 +1,37 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-{{ product.name }},
-    {% for category in product.categories.all %}
-    {{ category }} |
-    {% endfor %}
-    , {{ product.specifications }} {{ product.description }}, {{ product.cost }},
-<img src="{{ product.image.url }}">, {{ product.creator }}
-    <a onclick='AjaxAdd("{% url 'add' %}?product_id={{ product.id }}")'>Add to cart</a>
 
+    <div class="container-fluid songs-container">
 
-
-
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="">
+                        {% if product.image %}
+                            <img src="{{ product.image }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ product.name }} <small>${{ product.price }}</small></h1>
+                    <h2>{{ product.specifications }}</h2>
+                    <h3>{{ product.description }}</h3>
+                {% for category in product.categories.all %}
+                    <h4>{{ category }}</h4>
+                {% endfor %}
+                    <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="#" onclick='AjaxAdd("{% url 'add' %}?product_id={{ product.id }}")'>Add to cart</a></li>
+{#                <li role="presentation"><a href="">Buy now</a></li>#}
+                        {% if perms.goods.change_product %}
+                            <li><a role="button" class="btn" href="{{ product.get_absolute_url }}update">Update</a></li>
+                        {% endif %}
+            </ul>
+                </div>
+            </div>
+        </div>
     <script>
     function AjaxAdd(add_url) {
         $.ajax({

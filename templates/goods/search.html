@@ -1,0 +1,19 @@
+{% block content %}
+    <form  class="navbar-form navbar-left" role="search" action="" method="get" accept-charset="utf-8">
+        <div class="form-group">
+            <input class="form-control" name="q" type="text" placeholder="Search">
+        </div>
+        <select name="by" class="selectpicker">
+            <option>Name</option>
+            <option>Specifications</option>
+            <option>Price</option>
+            <option value="quantity_in_stock">Quantity in stock</option>
+        </select>
+        <select name="in" class="selectpicker">
+            <option value="">in ascending order</option>
+            <option value="-">in decreasing order</option>
+        </select>
+    <button class="btn btn-default" type="submit">Enter</button>
+    </form>
+
+{% endblock %}

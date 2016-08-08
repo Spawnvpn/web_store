@@ -11,14 +11,24 @@
 <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js"></script>
+<link rel="stylesheet" type="text/css" href="static/css/style.css" />
+
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
         {% load static %}
+        {% load staticfiles %}
         {% block head %}
         {% load carton_tags %}
         {% get_cart as cart %}
             <nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
+  <div class="container-fluid bar">
 
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -32,38 +42,21 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+{#        <li class="active"><a href="#">Link</a></li>#}
+{#        <li><a href="#">Link</a></li>#}
       </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
+      {% include "goods/search.html" %}
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
           <li><a href="/cart/show/">Cart {{ cart.count }}</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.first_name }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+{#            <li><a href="#">Action</a></li>#}
+{#            <li><a href="#">Another action</a></li>#}
+{#            <li><a href="#">Something else here</a></li>#}
             <li class="divider"></li>
-            <li><form method="POST" action="/logout/">{% csrf_token %}<button type="submit" class="btn btn-link">Logout</button></form></li>
+            <li><form role="presentation" method="POST" action="/logout/">{% csrf_token %}<button type="submit" class="btn logoutbtn">Logout</button></form></li>
       {% else %}
         <li><a href="/login/">Login</a></li>
         <li><a href="/register/">Register</a></li>

@@ -3,22 +3,60 @@
 {% block content %}
         {% load carton_tags %}
         {% get_cart as cart %}
-{% for item in cart.items %}
-    {{ item.product.name }}
-    {{ item.quantity }}
-    {{ item.subtotal }}
-{% endfor %}
-
-You can also use this convinent shortcut:
-{% for product in cart.products %}
-    {{ product.name }}
-{% endfor %}
-    <a href="/cart/checkout/">Checkout</a>
-
-
-{% for item in cart.items %}
-    <a onclick='AjaxRemove("{% url 'remove' %}?id={{ item.product.id }}")'>Remove this item</a>
-{% endfor %}
+    <div class="col-sm-8 col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Cart</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in cart.items %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td>
+                                            <span>{{ item.quantity }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ item.price }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ item.subtotal }}</span>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-xs" onclick='AjaxRemove("{% url 'remove' %}?id={{ item.product.id }}")'>Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                                <td>
+                                Total:
+                                </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ cart.total }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <ul class="nav nav-pills">
+                        <li  role="presentation" class="active"><a href="/cart/checkout/">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     function AjaxRemove(remove_url) {

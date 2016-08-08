@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'carton',
+    'sorl.thumbnail',
 
     'goods',
     'users',

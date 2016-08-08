@@ -1,10 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% load carton_tags %}
-{% get_cart as cart %}
-<form method="POST">{% csrf_token %}
 
-<input type="submit" value="" name="products">
+
+    <form method="POST" action="" id="delivery" name="delivery" onsubmit="event.preventDefault();">{% csrf_token %}
+  <div class="form-group">
+    <label for="">Сity</label>
+    <input type="text" class="form-control" id="" name="city" placeholder="Enter city">
+  </div>
+  <div class="form-group">
+    <label for="">Address</label>
+    <input type="text" class="form-control" id="" name="address" placeholder="Address">
+  </div>
+  <button type="submit" class="btn btn-primary" name="products">Submit</button>
 </form>
+
+
+<script>
+$(function() {
+    $('#delivery').submit(function() {
+        $.ajax({
+            url: '',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+                if (response) {
+                    alert('Done')
+                }
+                else {
+                    alert('Error')
+                }
+            }
+        });
+    });
+});
+        </script>
 {% endblock %}

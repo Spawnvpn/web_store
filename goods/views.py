@@ -1,11 +1,10 @@
-import time
-
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from goods.forms import ProductCreateForm
-from goods.models import Product, Order
+from goods.models import Product, Order, SubOrder
 from django.http import HttpResponse
 from carton.cart import Cart
 
@@ -13,6 +12,21 @@ from carton.cart import Cart
 class GoodsListView(ListView):
     model = Product
     context_object_name = 'product_list'
+
+    def get_queryset(self):
+        qs = super(GoodsListView, self).get_queryset()
+        q = self.request.GET.get('q')
+        if q is not None:
+            sort_by = self.request.GET.get('by')
+            if sort_by is not None:
+                sort_by = self.request.GET.get('in') + sort_by.lower()
+            else:
+                sort_by = 'price'
+            return Product.objects.filter(Q(name__icontains=q) |
+                                          Q(specifications__icontains=q) |
+                                          Q(price__icontains=q) |
+                                          Q(quantity_in_stock__icontains=q)).order_by(sort_by)
+        return qs
 
 
 class GoodsDetailView(DetailView):
@@ -31,6 +45,7 @@ class GoodsCreateView(CreateView):
 
 
 class GoodsUpdateView(UpdateView):
+    template_name = 'goods/product_update.html'
     model = Product
     form_class = ProductCreateForm
 
@@ -62,14 +77,21 @@ def remove(request):
 def checkout(request):
     if request.method == 'POST':
         cart = Cart(request.session)
-        order = Order()
-        order.date = timezone.now()
-        order.customer = request.user
-        order.total_price = cart.total
+        order = Order(
+            date=timezone.now(),
+            customer=request.user,
+            total_price=cart.total,
+            city=request.POST.get('city'),
+            address=request.POST.get('address'),
+        )
         order.save()
-        for pk in request.session.get('CART'):
-            order.products.add(Product.objects.get(pk=request.session.get('CART').get(pk).get('product_pk')))
-        order.save()
+        for item in cart.items:
+            sub_order = SubOrder(
+                product=item.product,
+                count=item.quantity,
+                order=order,
+            )
+            sub_order.save()
         cart.clear()
-        return HttpResponse("Done")
+        return HttpResponse(request)
     return render(request, 'goods/checkout.html')
