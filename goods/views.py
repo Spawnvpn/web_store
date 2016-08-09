@@ -88,7 +88,7 @@ def checkout(request):
         for item in cart.items:
             sub_order = SubOrder(
                 product=item.product,
-                count=item.quantity,
+                quantity=item.quantity,
                 order=order,
             )
             sub_order.save()
