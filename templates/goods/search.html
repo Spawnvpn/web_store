@@ -1,19 +1,20 @@
 {% block content %}
+    {% load i18n %}
     <form  class="navbar-form navbar-left" role="search" action="" method="get" accept-charset="utf-8">
         <div class="form-group">
-            <input class="form-control" name="q" type="text" placeholder="Search">
+            <input class="form-control" name="q" type="text" placeholder="{% trans "Search" %}">
         </div>
         <select name="by" class="selectpicker">
-            <option>Name</option>
-            <option>Specifications</option>
-            <option>Price</option>
-            <option value="quantity_in_stock">Quantity in stock</option>
+            <option>{% trans "Name" %}</option>
+            <option>{% trans "Specifications" %}</option>
+            <option>{% trans "Price" %}</option>
+            <option value="quantity_in_stock">{% trans "Quantity in stock" %}</option>
         </select>
         <select name="in" class="selectpicker">
-            <option value="">in ascending order</option>
-            <option value="-">in decreasing order</option>
+            <option value="">{% trans "in ascending order" %}</option>
+            <option value="-">{% trans "in decreasing order" %}</option>
         </select>
-    <button class="btn btn-default" type="submit">Enter</button>
+    <button class="btn btn-default" type="submit">{% trans "Enter" %}</button>
     </form>
 
 {% endblock %}

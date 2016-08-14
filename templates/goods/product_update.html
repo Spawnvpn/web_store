@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
     <form method="POST" action="">
@@ -6,7 +7,7 @@
     <table>
         {{ form.as_table }}
     </table>
-    <button class="btn btn-primary" formenctype="multipart/form-data">Update</button>
-    <a class="btn btn-danger" href="{{ product.get_absolute_url }}delete/">Delete</a>
+    <button class="btn btn-primary" formenctype="multipart/form-data">{% trans "Update" %}</button>
+    <a class="btn btn-danger" href="{{ product.get_absolute_url }}delete/">{% trans "Delete" %}</a>
     </form>
 {% endblock %}

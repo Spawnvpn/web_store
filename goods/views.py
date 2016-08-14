@@ -1,3 +1,4 @@
+from web_store import settings
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -7,6 +8,8 @@ from goods.forms import ProductCreateForm
 from goods.models import Product, Order, SubOrder
 from django.http import HttpResponse
 from carton.cart import Cart
+from django.utils.translation import ugettext as _
+from django.conf import settings
 
 
 class GoodsListView(ListView):
@@ -59,7 +62,7 @@ def add(request):
     cart = Cart(request.session)
     product = Product.objects.get(pk=request.GET.get('product_id'))
     cart.add(product, price=product.price)
-    return HttpResponse("Added")
+    return HttpResponse(_("Added"))
 
 
 def show(request):
@@ -71,7 +74,7 @@ def remove(request):
     product = Product.objects.get(id=request.GET.get('id'))
     cart.remove(product)
     if request.is_ajax():
-        return HttpResponse("Item removed")
+        return HttpResponse(_("Item removed"))
 
 
 def checkout(request):
@@ -95,3 +98,9 @@ def checkout(request):
         cart.clear()
         return HttpResponse(request)
     return render(request, 'goods/checkout.html')
+
+
+def change_lang(request, lang):
+    if lang:
+        settings.LANGUAGE_CODE = lang
+    return redirect('/')

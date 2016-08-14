@@ -45,6 +45,22 @@ INSTALLED_APPS = [
     'users',
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
+
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,6 +69,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'web_store.urls'
@@ -109,7 +126,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+
+LANGUAGE_CODE = "en"
+
+LANGUAGES = (
+    'ru',
+    'en',
+)
 
 TIME_ZONE = 'Europe/Kiev'
 
@@ -137,3 +160,6 @@ STATICFILES_DIRS = [
 ]
 
 CART_PRODUCT_MODEL = 'goods.models.Product'
+
+
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale'), ]

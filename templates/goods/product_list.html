@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block content %}
     <div class="container cont">
@@ -10,15 +11,13 @@
                             <a href="{{ product.get_absolute_url }}">
                                 <img class="img img-responsive" width="300" height="100" src="{{ product.image }}">
                             </a>
-                                                <div class="caption">
+                            <div class="caption">
                             <h2>{{ product.name }}</h2>
                             <h4>${{ product.price }}</h4>
-                            <h5 class="instock">In stock: {{ product.quantity_in_stock }}</h5>
+                            <h5 class="instock">{% trans "In stock" %}: {{ product.quantity_in_stock }}</h5>
 
-                            <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-sm" role="button">View Details</a>
-
-
-                        </div>
+                            <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-sm" role="button">{% trans "View Details" %}</a>
+                            </div>
                          </div>
                     </div>
                 {% if forloop.counter|divisibleby:"3" %}

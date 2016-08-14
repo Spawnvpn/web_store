@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, models
 from django import forms
 from django.forms.widgets import MultiWidget, Select, TextInput
 from users.models import WebStoreUser
+from django.utils.translation import ugettext as _
 
 
 class PhoneWidget(MultiWidget):
@@ -37,11 +38,12 @@ class PhoneField(forms.MultiValueField):
 
 
 class RegisterUserForm(forms.ModelForm):
-    username = forms.CharField(max_length=20)
-    password1 = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(widget=forms.PasswordInput)
-    birth_date = forms.DateField()
-    phone_number = PhoneField()
+    username = forms.CharField(max_length=20, label=_('Username'))
+    password1 = forms.CharField(widget=forms.PasswordInput, label=_('Password'))
+    password2 = forms.CharField(widget=forms.PasswordInput, label=_('Password confirm'))
+    email = forms.EmailField(label=_('Email'))
+    birth_date = forms.DateField(label=_('Birth date'))
+    phone_number = PhoneField(label=_('Phone number'))
 
     def clean_birth_date(self):
         date = self.cleaned_data.get('birth_date')
@@ -73,9 +75,9 @@ class RegisterUserForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'fill-container'}))
+        widget=forms.TextInput(attrs={'class': 'fill-container'}), label=_('Username'))
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'fill-container'}))
+        widget=forms.PasswordInput(attrs={'class': 'fill-container'}), label=_('Password'))
 
     def clean(self):
         cleaned_data = super(LoginForm, self).clean()

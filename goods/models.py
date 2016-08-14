@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from sorl.thumbnail import ImageField, get_thumbnail
 from users.models import WebStoreUser
+from django.utils.translation import ugettext_lazy as _
 
 
 class Category(models.Model):

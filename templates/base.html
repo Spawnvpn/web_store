@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -25,6 +25,7 @@
         {% load static %}
         {% load staticfiles %}
         {% block head %}
+        {% load i18n %}
         {% load carton_tags %}
         {% get_cart as cart %}
             <nav class="navbar navbar-default" role="navigation">
@@ -37,7 +38,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Sun Shop</a>
+      <a class="navbar-brand" href="/">{% trans "Sun Shop" %}</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -48,18 +49,24 @@
       {% include "goods/search.html" %}
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
-          <li><a href="/cart/show/">Cart {{ cart.count }}</a></li>
+          <li><a href="/cart/show/">{% trans "Cart" %} {{ cart.count }}</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.first_name }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-{#            <li><a href="#">Action</a></li>#}
+            <li><a href="/lang/en/">English</a></li>
+            <li><a href="/lang/ru/">Русский</a></li>
 {#            <li><a href="#">Another action</a></li>#}
 {#            <li><a href="#">Something else here</a></li>#}
             <li class="divider"></li>
-            <li><form role="presentation" method="POST" action="/logout/">{% csrf_token %}<button type="submit" class="btn logoutbtn">Logout</button></form></li>
+            <li><form role="presentation" method="POST" action="/logout/">{% csrf_token %}<button type="submit" class="btn logoutbtn">{% trans "Logout" %}</button></form></li>
+            <li>{% for lang in LANGUAGES %}
+    <li>
+    </li>
+  {% endfor %}
+              </li>
       {% else %}
-        <li><a href="/login/">Login</a></li>
-        <li><a href="/register/">Register</a></li>
+        <li><a href="/login/">{% trans "Login" %}</a></li>
+        <li><a href="/register/">{% trans "Register" %}</a></li>
       {% endif %}
           </ul>
         </li>
@@ -74,6 +81,3 @@
     {% block content %}
     {% endblock %}
 </div>
-{% block js %} {% endblock %}
-</body>
-</html>

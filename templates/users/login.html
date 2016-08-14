@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 
@@ -8,7 +9,7 @@
         <table>
             {{ form.as_table }}
         </table>
-        <button class="btn btn-info">Login</button>
+        <button class="btn btn-info">{% trans "Login" %}</button>
     </form>
 {% endblock %}
 
