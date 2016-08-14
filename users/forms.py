@@ -1,9 +1,9 @@
 import datetime
-from django.contrib.auth import authenticate, models
+from django.contrib.auth import authenticate
 from django import forms
 from django.forms.widgets import MultiWidget, Select, TextInput
 from users.models import WebStoreUser
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 
 class PhoneWidget(MultiWidget):

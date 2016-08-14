@@ -53,21 +53,17 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.first_name }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="/lang/en/">English</a></li>
-            <li><a href="/lang/ru/">Русский</a></li>
 {#            <li><a href="#">Another action</a></li>#}
 {#            <li><a href="#">Something else here</a></li>#}
             <li class="divider"></li>
             <li><form role="presentation" method="POST" action="/logout/">{% csrf_token %}<button type="submit" class="btn logoutbtn">{% trans "Logout" %}</button></form></li>
-            <li>{% for lang in LANGUAGES %}
-    <li>
-    </li>
-  {% endfor %}
-              </li>
+
       {% else %}
         <li><a href="/login/">{% trans "Login" %}</a></li>
         <li><a href="/register/">{% trans "Register" %}</a></li>
       {% endif %}
+            <li><a href="/lang/en/">English</a></li>
+          <li><a href="/lang/ru/">Русский</a></li>
           </ul>
         </li>
       </ul>
