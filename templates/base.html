@@ -62,8 +62,17 @@
         <li><a href="/login/">{% trans "Login" %}</a></li>
         <li><a href="/register/">{% trans "Register" %}</a></li>
       {% endif %}
-            <li><a href="/lang/en/">English</a></li>
-          <li><a href="/lang/ru/">Русский</a></li>
+            <li>  {% get_available_languages as languages %}
+        {% for lang_code, lang_name in languages %}
+            {% language lang_code %}
+            {% if object.id %}
+                <a class="lang" href="{% url request.resolver_match.url_name  id=object.id %}">{{ lang_name }}</a>
+            {% else %}
+                <a class="lang" href="{% url request.resolver_match.url_name %}">{{ lang_name }}</a>
+            {% endif %}
+            {% endlanguage %}
+{% endfor %}
+</li>
           </ul>
         </li>
       </ul>

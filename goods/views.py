@@ -1,4 +1,3 @@
-from web_store import settings
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -9,7 +8,6 @@ from goods.models import Product, Order, SubOrder
 from django.http import HttpResponse
 from carton.cart import Cart
 from django.utils.translation import ugettext as _
-from django.conf import settings
 
 
 class GoodsListView(ListView):
@@ -98,9 +96,3 @@ def checkout(request):
         cart.clear()
         return HttpResponse(request)
     return render(request, 'goods/checkout.html')
-
-
-def change_lang(request, lang):
-    if lang:
-        settings.LANGUAGE_CODE = lang
-    return redirect('/')

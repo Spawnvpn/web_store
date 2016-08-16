@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls import url, include
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
-from goods.views import change_lang
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include("goods.urls")),
-    url(r'^', include("users.urls")),
-    url(r'^lang/(?P<lang>\w{2})/', change_lang),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += i18n_patterns(
+    url(r'^', include('goods.urls')),
+    url(r'^', include('users.urls')),
+)
