@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'carton',
     'sorl.thumbnail',
+    'rest_framework',
 
     'goods',
     'users',
@@ -60,6 +61,11 @@ LOGGING = {
             'level': 'DEBUG',
         },
     },
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGINATE_BY': 10
 }
 
 MIDDLEWARE_CLASSES = [
