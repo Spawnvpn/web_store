@@ -23,31 +23,37 @@ def api_root(request, format=None):
 class UserList(generics.ListCreateAPIView):
     model = WebStoreUser
     serializer_class = WebStoreUserSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     model = WebStoreUser
     serializer_class = WebStoreUserSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class ProductList(generics.ListCreateAPIView):
     model = Product
     serializer_class = ProductSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Product
     serializer_class = ProductSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class CategoryList(generics.ListCreateAPIView):
     model = Category
     serializer_class = CategorySerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Category
     serializer_class = CategorySerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 
